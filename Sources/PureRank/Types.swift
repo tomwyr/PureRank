@@ -3,7 +3,7 @@ import Foundation
 struct Player {
   let id: String
   let mean: Double
-  let variance: Double
+  let deviation: Double
 }
 
 struct Team {
@@ -14,7 +14,7 @@ struct Team {
   }
 
   func variance() -> Double {
-    players.reduce(0.0) { sum, player in sum + pow(player.variance, 2) }
+    players.reduce(0.0) { sum, player in sum + pow(player.deviation, 2) }
   }
 }
 

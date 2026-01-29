@@ -48,13 +48,13 @@ struct UpdateSkill {
     _ delta: MatchUpdateDelta,
   ) -> Team {
     let players = team.players.map { player in
-      let cSq = pow(params.c, 2)
-      let varianceSq = pow(player.variance, 2)
+      let perfVariance = pow(params.c, 2)
+      let variance = pow(player.deviation, 2)
 
-      let meanNew = player.mean + (varianceSq / params.c * params.vt) * delta.rawValue
-      let varianceNew = sqrt(varianceSq * (1 - (varianceSq / cSq * params.wt)))
+      let meanNew = player.mean + (variance / params.c * params.vt) * delta.rawValue
+      let deviationNew = sqrt(variance * (1 - (variance / perfVariance * params.wt)))
 
-      return Player(id: player.id, mean: meanNew, variance: varianceNew)
+      return Player(id: player.id, mean: meanNew, deviation: deviationNew)
     }
 
     return Team(players: players)
