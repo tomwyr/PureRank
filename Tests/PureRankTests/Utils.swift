@@ -14,7 +14,7 @@ extension TeamMatch {
   func hasPlayer(
     id: String,
     mean: Double? = nil, meanEpsilon: Double = 0,
-    variance: Double? = nil, varianceEpsilon: Double = 0,
+    deviation: Double? = nil, deviationEpsilon: Double = 0,
   ) -> Bool {
     for player in allPlayers {
       if id != player.id { continue }
@@ -23,8 +23,8 @@ extension TeamMatch {
           continue
         }
       }
-      if let variance {
-        if abs(variance - player.variance) > varianceEpsilon {
+      if let deviation {
+        if abs(deviation - player.deviation) > deviationEpsilon {
           continue
         }
       }
