@@ -6,48 +6,10 @@ struct UpdateSkill {
   init(matchVarianceFactor: Double = defaultMatchVarianceFactor) {
     self.matchVarianceFactor = matchVarianceFactor
   }
+}
 
-  func soloMatch(_ match: SoloMatch) -> SoloMatch {
-    let (winner, loser) =
-      switch match.winnerSide {
-      case .sideA: (match.playerA, match.playerB)
-      case .sideB: (match.playerB, match.playerA)
-      }
-
-    let params = calcUpdateParams(winner: winner, loser: loser)
-    let winnerNew = updatePlayer(winner, params, .win)
-    let loserNew = updatePlayer(loser, params, .lose)
-
-    let (playerANew, playerBNew) =
-      switch match.winnerSide {
-      case .sideA: (winnerNew, loserNew)
-      case .sideB: (loserNew, winnerNew)
-      }
-
-    return SoloMatch(playerA: playerANew, playerB: playerBNew, winnerSide: match.winnerSide)
-  }
-
-  func teamMatch(_ match: TeamMatch) -> TeamMatch {
-    let (winner, loser) =
-      switch match.winnerSide {
-      case .sideA: (match.teamA, match.teamB)
-      case .sideB: (match.teamB, match.teamA)
-      }
-
-    let params = calcUpdateParams(winner: winner, loser: loser)
-    let winnerNew = updateTeam(winner, params, .win)
-    let loserNew = updateTeam(loser, params, .lose)
-
-    let (teamANew, teamBNew) =
-      switch match.winnerSide {
-      case .sideA: (winnerNew, loserNew)
-      case .sideB: (loserNew, winnerNew)
-      }
-
-    return TeamMatch(teamA: teamANew, teamB: teamBNew, winnerSide: match.winnerSide)
-  }
-
-  private func calcUpdateParams(winner: Player, loser: Player) -> MatchUpdateParams {
+extension UpdateSkill {
+  func calcUpdateParams(winner: Player, loser: Player) -> MatchUpdateParams {
     calcUpdateParams(
       wMean: winner.mean, wVariance: winner.variance,
       lMean: loser.mean, lVariance: loser.variance,
@@ -55,7 +17,7 @@ struct UpdateSkill {
     )
   }
 
-  private func calcUpdateParams(winner: Team, loser: Team) -> MatchUpdateParams {
+  func calcUpdateParams(winner: Team, loser: Team) -> MatchUpdateParams {
     calcUpdateParams(
       wMean: winner.mean, wVariance: winner.variance,
       lMean: loser.mean, lVariance: loser.variance,
@@ -74,8 +36,10 @@ struct UpdateSkill {
     let wt = vt * (vt + t)
     return MatchUpdateParams(c: c, vt: vt, wt: wt)
   }
+}
 
-  private func updatePlayer(
+extension UpdateSkill {
+  func updatePlayer(
     _ player: Player,
     _ params: MatchUpdateParams,
     _ delta: MatchUpdateDelta,
@@ -89,7 +53,7 @@ struct UpdateSkill {
     return Player(id: player.id, mean: meanNew, deviation: deviationNew)
   }
 
-  private func updateTeam(
+  func updateTeam(
     _ team: Team,
     _ params: MatchUpdateParams,
     _ delta: MatchUpdateDelta,
@@ -100,13 +64,13 @@ struct UpdateSkill {
   }
 }
 
-private struct MatchUpdateParams {
+struct MatchUpdateParams {
   let c: Double
   let vt: Double
   let wt: Double
 }
 
-private enum MatchUpdateDelta: Double {
+enum MatchUpdateDelta: Double {
   case win = 1
   case lose = -1
 }
