@@ -6,6 +6,7 @@ struct Player {
   let deviation: Double
 
   var variance: Double { pow(deviation, 2) }
+  var rating: Double { mean - 3 * deviation }
 }
 
 struct Team {
