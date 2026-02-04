@@ -26,6 +26,10 @@ struct SoloMatch {
   let winnerSide: MatchSide
 }
 
+struct FreeForAllMatch {
+  let players: [Player]
+}
+
 struct TeamMatch {
   let teamA: Team
   let teamB: Team
