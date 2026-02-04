@@ -2,11 +2,23 @@ import Foundation
 
 @testable import PureRank
 
-extension TeamMatch {
+extension TeamMatch: MatchTestUtils {
   var allPlayers: [Player] {
     teamA.players + teamB.players
   }
+}
 
+extension SoloMatch: MatchTestUtils {
+  var allPlayers: [Player] {
+    [playerA, playerB]
+  }
+}
+
+protocol MatchTestUtils {
+  var allPlayers: [Player] { get }
+}
+
+extension MatchTestUtils {
   func findPlayer(id: String) -> Player? {
     allPlayers.first { $0.id == id }
   }
