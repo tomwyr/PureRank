@@ -1,5 +1,5 @@
 extension UpdateSkill {
-  func teamMatch(_ match: TeamMatch) -> TeamMatch {
+  func teamDuel(_ match: TeamDuel) -> TeamDuel {
     let (winner, loser) =
       switch match.winnerSide {
       case .sideA: (match.teamA, match.teamB)
@@ -16,6 +16,6 @@ extension UpdateSkill {
       case .sideB: (loserNew, winnerNew)
       }
 
-    return TeamMatch(teamA: teamANew, teamB: teamBNew, winnerSide: match.winnerSide)
+    return TeamDuel(teamA: teamANew, teamB: teamBNew, winnerSide: match.winnerSide)
   }
 }

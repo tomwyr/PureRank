@@ -8,11 +8,8 @@ import Testing
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)
     let playerC = Player(id: "Carol", mean: 25, deviation: 7)
 
-    let match = FreeForAllMatch(
-      players: [playerA, playerB, playerC],
-    )
-
-    let result = UpdateSkill().freeForAllMatch(match)
+    let match = FreeForAll(players: [playerA, playerB, playerC])
+    let result = UpdateSkill().freeForAll(match)
 
     func expectPlayer(id: String, mean: Double, deviation: Double) {
       #expect(
@@ -34,11 +31,8 @@ import Testing
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)
     let playerC = Player(id: "Carol", mean: 25, deviation: 7)
 
-    let match = FreeForAllMatch(
-      players: [playerA, playerB, playerC],
-    )
-
-    let result = UpdateSkill().freeForAllMatch(match)
+    let match = FreeForAll(players: [playerA, playerB, playerC])
+    let result = UpdateSkill().freeForAll(match)
 
     func expectDeviationDecrease(id: String) throws {
       let before = try #require(match.findPlayer(id: id))

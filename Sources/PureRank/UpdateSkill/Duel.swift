@@ -1,5 +1,5 @@
 extension UpdateSkill {
-  func soloMatch(_ match: SoloMatch) -> SoloMatch {
+  func duel(_ match: Duel) -> Duel {
     let (winner, loser) =
       switch match.winnerSide {
       case .sideA: (match.playerA, match.playerB)
@@ -16,6 +16,6 @@ extension UpdateSkill {
       case .sideB: (loserNew, winnerNew)
       }
 
-    return SoloMatch(playerA: playerANew, playerB: playerBNew, winnerSide: match.winnerSide)
+    return Duel(playerA: playerANew, playerB: playerBNew, winnerSide: match.winnerSide)
   }
 }

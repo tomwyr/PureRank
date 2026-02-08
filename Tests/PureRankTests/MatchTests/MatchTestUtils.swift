@@ -2,25 +2,25 @@ import Foundation
 
 @testable import PureRank
 
-extension SoloMatch: MatchTestUtils {
+extension Duel: MatchTestUtils {
   var allPlayers: [Player] {
     [playerA, playerB]
   }
 }
 
-extension FreeForAllMatch: MatchTestUtils {
+extension FreeForAll: MatchTestUtils {
   var allPlayers: [Player] {
     players
   }
 }
 
-extension TeamMatch: MatchTestUtils {
+extension TeamDuel: MatchTestUtils {
   var allPlayers: [Player] {
     teamA.players + teamB.players
   }
 }
 
-extension MultiTeamMatch: MatchTestUtils {
+extension TeamFreeForAll: MatchTestUtils {
   var allPlayers: [Player] {
     teams.flatMap(\.players)
   }

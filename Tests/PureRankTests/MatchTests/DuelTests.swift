@@ -7,13 +7,8 @@ import Testing
     let playerA = Player(id: "Alice", mean: 30, deviation: 4)
     let playerB = Player(id: "Bob", mean: 28, deviation: 6)
 
-    let match = SoloMatch(
-      playerA: playerA,
-      playerB: playerB,
-      winnerSide: .sideA
-    )
-
-    let result = UpdateSkill().soloMatch(match)
+    let match = Duel(playerA: playerA, playerB: playerB, winnerSide: .sideA)
+    let result = UpdateSkill().duel(match)
 
     func expectPlayer(id: String, mean: Double, deviation: Double) {
       #expect(
@@ -33,13 +28,8 @@ import Testing
     let playerA = Player(id: "Alice", mean: 30, deviation: 4)
     let playerB = Player(id: "Bob", mean: 28, deviation: 6)
 
-    let match = SoloMatch(
-      playerA: playerA,
-      playerB: playerB,
-      winnerSide: .sideA
-    )
-
-    let result = UpdateSkill().soloMatch(match)
+    let match = Duel(playerA: playerA, playerB: playerB, winnerSide: .sideA)
+    let result = UpdateSkill().duel(match)
 
     func expectDeviationDecrease(id: String) throws {
       let before = try #require(match.findPlayer(id: id))

@@ -21,17 +21,17 @@ struct Team {
   }
 }
 
-struct SoloMatch {
+struct Duel {
   let playerA: Player
   let playerB: Player
   let winnerSide: MatchSide
 }
 
-struct FreeForAllMatch {
+struct FreeForAll {
   let players: [Player]
 }
 
-struct TeamMatch {
+struct TeamDuel {
   let teamA: Team
   let teamB: Team
   let winnerSide: MatchSide
@@ -41,7 +41,7 @@ struct TeamMatch {
   }
 }
 
-struct MultiTeamMatch {
+struct TeamFreeForAll {
   let teams: [Team]
 
   var playerCount: Int {
