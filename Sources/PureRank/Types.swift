@@ -41,6 +41,14 @@ struct TeamMatch {
   }
 }
 
+struct MultiTeamMatch {
+  let teams: [Team]
+
+  var playerCount: Int {
+    teams.reduce(0) { sum, team in sum + team.players.count }
+  }
+}
+
 enum MatchSide {
   case sideA, sideB
 }

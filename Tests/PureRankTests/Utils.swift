@@ -20,6 +20,12 @@ extension TeamMatch: MatchTestUtils {
   }
 }
 
+extension MultiTeamMatch: MatchTestUtils {
+  var allPlayers: [Player] {
+    teams.flatMap(\.players)
+  }
+}
+
 protocol MatchTestUtils {
   var allPlayers: [Player] { get }
 }
