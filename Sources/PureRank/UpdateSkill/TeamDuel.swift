@@ -7,8 +7,8 @@ extension UpdateSkill {
       }
 
     let params = calcUpdateParams(winner: winner, loser: loser)
-    let winnerNew = updateTeam(winner, params, .win)
-    let loserNew = updateTeam(loser, params, .lose)
+    let winnerNew = updateTeam(winner, params, .plus)
+    let loserNew = updateTeam(loser, params, .minus)
 
     let (teamANew, teamBNew) =
       switch match.winnerSide {

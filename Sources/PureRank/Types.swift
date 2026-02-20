@@ -27,6 +27,12 @@ struct Duel {
   let winnerSide: MatchSide
 }
 
+struct DuelWithDraw {
+  let playerA: Player
+  let playerB: Player
+  let outcome: MatchOutcome
+}
+
 struct FreeForAll {
   let players: [Player]
 }
@@ -47,6 +53,11 @@ struct TeamFreeForAll {
   var playerCount: Int {
     teams.reduce(0) { sum, team in sum + team.players.count }
   }
+}
+
+enum MatchOutcome {
+  case win(MatchSide)
+  case draw
 }
 
 enum MatchSide {
