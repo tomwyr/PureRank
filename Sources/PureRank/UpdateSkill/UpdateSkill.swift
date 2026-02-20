@@ -37,9 +37,9 @@ extension UpdateSkill {
   ) -> MatchUpdateParams {
     let c = calcC(varianceA: wVariance, varianceB: lVariance, playerCount: playerCount)
     let t = (wMean - lMean) / c
-    let vt = StandardNormal.pdf(t) / StandardNormal.cdf(t)
-    let wt = vt * (vt + t)
-    return MatchUpdateParams(c: c, vt: vt, wt: wt)
+    let v = stdPdf(t) / stdCdf(t)
+    let w = v * (v + t)
+    return MatchUpdateParams(c: c, v: v, w: w)
   }
 
   func calcDrawUpdateParams(playerA: Player, playerB: Player) -> MatchUpdateParams {
@@ -58,13 +58,12 @@ extension UpdateSkill {
     let e = calcDrawMargin()
     let c = calcC(varianceA: aVariance, varianceB: bVariance, playerCount: playerCount)
     let t = (aMean - bMean) / c
-    let vt =
-      (StandardNormal.pdf(-e - t) - StandardNormal.pdf(e - t))
-      / (StandardNormal.cdf(e - t) - StandardNormal.cdf(-e - t))
-    let wt =
-      pow(vt, 2) + ((e - t) * StandardNormal.pdf(e - t) - (-e - t) * StandardNormal.pdf(-e - t))
-      / (StandardNormal.cdf(e - t) - StandardNormal.cdf(-e - t))
-    return MatchUpdateParams(c: c, vt: vt, wt: wt)
+    let v = (stdPdf(-e - t) - stdPdf(e - t)) / (stdCdf(e - t) - stdCdf(-e - t))
+    let w =
+      pow(v, 2)
+      + ((e - t) * stdPdf(e - t) - (-e - t) * stdPdf(-e - t))
+      / (stdCdf(e - t) - stdCdf(-e - t))
+    return MatchUpdateParams(c: c, v: v, w: w)
   }
 
   func calcC(varianceA: Double, varianceB: Double, playerCount: Int) -> Double {
@@ -72,7 +71,7 @@ extension UpdateSkill {
   }
 
   func calcDrawMargin() -> Double {
-    StandardNormal.ppf((1 + matchDrawRate) / 2) * sqrt(2) * matchDeviationRate
+    stdPpf((1 + matchDrawRate) / 2) * sqrt(2) * matchDeviationRate
   }
 }
 
@@ -85,8 +84,8 @@ extension UpdateSkill {
     let perfVariance = pow(params.c, 2)
     let variance = pow(player.deviation, 2)
 
-    let meanNew = player.mean + (variance / params.c * params.vt) * delta.rawValue
-    let deviationNew = sqrt(variance * (1 - (variance / perfVariance * params.wt)))
+    let meanNew = player.mean + (variance / params.c * params.v) * delta.rawValue
+    let deviationNew = sqrt(variance * (1 - (variance / perfVariance * params.w)))
 
     return Player(id: player.id, mean: meanNew, deviation: deviationNew)
   }
@@ -104,8 +103,8 @@ extension UpdateSkill {
 
 struct MatchUpdateParams {
   let c: Double
-  let vt: Double
-  let wt: Double
+  let v: Double
+  let w: Double
 }
 
 enum MatchUpdateDelta: Double {

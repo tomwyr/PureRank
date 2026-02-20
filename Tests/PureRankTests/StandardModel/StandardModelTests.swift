@@ -5,8 +5,7 @@ import Testing
 @Suite struct StandardNormalTests {
   @Test func pdf() {
     func testPdf(_ t: Double, _ range: any RangeExpression<Double>) {
-      let result = StandardNormal.pdf(t)
-      #expect(range.contains(result))
+      #expect(range.contains(stdPdf(t)))
     }
 
     testPdf(-3.99, 0.00013...0.00015)
@@ -32,8 +31,7 @@ import Testing
 
   @Test func cdf() {
     func testCdf(_ t: Double, _ range: any RangeExpression<Double>) {
-      let result = StandardNormal.cdf(t)
-      #expect(range.contains(result))
+      #expect(range.contains(stdCdf(t)))
     }
 
     testCdf(-3.99, ..<0.00004)
@@ -59,8 +57,7 @@ import Testing
 
   @Test func ppf() {
     func testPpf(_ p: Double, _ range: any RangeExpression<Double>) {
-      let result = StandardNormal.ppf(p)
-      #expect(range.contains(result))
+      #expect(range.contains(stdPpf(p)))
     }
 
     testPpf(0.00002, ..<(-3.99))
