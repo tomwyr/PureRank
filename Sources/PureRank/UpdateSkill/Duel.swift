@@ -7,18 +7,18 @@ extension UpdateSkill {
     return Duel(playerA: playerANew, playerB: playerBNew, winnerSide: match.winnerSide)
   }
 
-  func duelWithDraw(_ match: DuelWithDraw) -> DuelWithDraw {
+  func duelWithDraws(_ match: DuelWithDraws) -> DuelWithDraws {
     switch match.outcome {
     case .draw:
       let (playerANew, playerBNew) = duelDraw(playerA: match.playerA, playerB: match.playerB)
-      return DuelWithDraw(playerA: playerANew, playerB: playerBNew, outcome: .draw)
+      return DuelWithDraws(playerA: playerANew, playerB: playerBNew, outcome: .draw)
 
     case .win(let winnerSide):
       let (playerANew, playerBNew) = duelWin(
         playerA: match.playerA, playerB: match.playerB,
         winnerSide: winnerSide,
       )
-      return DuelWithDraw(playerA: playerANew, playerB: playerBNew, outcome: .win(winnerSide))
+      return DuelWithDraws(playerA: playerANew, playerB: playerBNew, outcome: .win(winnerSide))
     }
   }
 

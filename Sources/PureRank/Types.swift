@@ -27,7 +27,7 @@ struct Duel {
   let winnerSide: MatchSide
 }
 
-struct DuelWithDraw {
+struct DuelWithDraws {
   let playerA: Player
   let playerB: Player
   let outcome: MatchOutcome
@@ -41,6 +41,16 @@ struct TeamDuel {
   let teamA: Team
   let teamB: Team
   let winnerSide: MatchSide
+
+  var playerCount: Int {
+    teamA.players.count + teamB.players.count
+  }
+}
+
+struct TeamDuelWithDraws {
+  let teamA: Team
+  let teamB: Team
+  let outcome: MatchOutcome
 
   var playerCount: Int {
     teamA.players.count + teamB.players.count

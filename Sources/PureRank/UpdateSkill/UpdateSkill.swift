@@ -50,6 +50,14 @@ extension UpdateSkill {
     )
   }
 
+  func calcDrawUpdateParams(teamA: Team, teamB: Team) -> MatchUpdateParams {
+    calcDrawUpdateParams(
+      aMean: teamA.mean, aVariance: teamA.variance,
+      bMean: teamB.mean, bVariance: teamB.variance,
+      playerCount: teamA.players.count + teamB.players.count,
+    )
+  }
+
   func calcDrawUpdateParams(
     aMean: Double, aVariance: Double,
     bMean: Double, bVariance: Double,
