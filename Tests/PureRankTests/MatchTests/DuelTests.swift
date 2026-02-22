@@ -10,18 +10,8 @@ import Testing
     let match = Duel(playerA: playerA, playerB: playerB, winnerSide: .sideA)
     let result = UpdateSkill().duel(match)
 
-    func expectPlayer(id: String, mean: Double, deviation: Double) {
-      #expect(
-        result.hasPlayer(
-          id: id,
-          mean: mean, meanEpsilon: 0.01,
-          deviation: deviation, deviationEpsilon: 0.01
-        )
-      )
-    }
-
-    expectPlayer(id: "Alice", mean: 27.01, deviation: 3.72)
-    expectPlayer(id: "Bob", mean: 25.48, deviation: 5.00)
+    #expect(result.hasPlayer(id: "Alice", mean: 27.01, deviation: 3.72))
+    #expect(result.hasPlayer(id: "Bob", mean: 25.48, deviation: 5.00))
   }
 
   @Test func uncertaintyDecrease() throws {
@@ -48,18 +38,8 @@ import Testing
     let match = DuelWithDraws(playerA: playerA, playerB: playerB, outcome: .draw)
     let result = UpdateSkill().duelWithDraws(match)
 
-    func expectPlayer(id: String, mean: Double, deviation: Double) {
-      #expect(
-        result.hasPlayer(
-          id: id,
-          mean: mean, meanEpsilon: 0.01,
-          deviation: deviation, deviationEpsilon: 0.01
-        )
-      )
-    }
-
-    expectPlayer(id: "Alice", mean: 25.77, deviation: 3.68)
-    expectPlayer(id: "Bob", mean: 28.27, deviation: 4.85)
+    #expect(result.hasPlayer(id: "Alice", mean: 25.77, deviation: 3.68))
+    #expect(result.hasPlayer(id: "Bob", mean: 28.27, deviation: 4.85))
   }
 
   @Test func duelWithDrawsUncertaintyDecrease() throws {
@@ -86,18 +66,8 @@ import Testing
     let match = DuelWithDraws(playerA: playerA, playerB: playerB, outcome: .win(.sideA))
     let result = UpdateSkill().duelWithDraws(match)
 
-    func expectPlayer(id: String, mean: Double, deviation: Double) {
-      #expect(
-        result.hasPlayer(
-          id: id,
-          mean: mean, meanEpsilon: 0.01,
-          deviation: deviation, deviationEpsilon: 0.01
-        )
-      )
-    }
-
-    expectPlayer(id: "Alice", mean: 27.01, deviation: 3.72)
-    expectPlayer(id: "Bob", mean: 25.48, deviation: 5.00)
+    #expect(result.hasPlayer(id: "Alice", mean: 27.01, deviation: 3.72))
+    #expect(result.hasPlayer(id: "Bob", mean: 25.48, deviation: 5.00))
   }
 
   @Test func winVsDrawSkillChange() async throws {

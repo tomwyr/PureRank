@@ -67,8 +67,8 @@ extension MatchTestUtils {
 
   func hasPlayer(
     id: String,
-    mean: Double? = nil, meanEpsilon: Double = 0,
-    deviation: Double? = nil, deviationEpsilon: Double = 0,
+    mean: Double? = nil, meanEpsilon: Double = 0.01,
+    deviation: Double? = nil, deviationEpsilon: Double = 0.01,
   ) -> Bool {
     for player in allPlayers {
       if id != player.id { continue }

@@ -39,39 +39,29 @@ import Testing
     let match = TeamFreeForAll(teams: [teamA, teamB, teamC, teamD])
     let result = UpdateSkill().teamFreeForAll(match)
 
-    func expectPlayer(id: String, mean: Double, deviation: Double) {
-      #expect(
-        result.hasPlayer(
-          id: id,
-          mean: mean, meanEpsilon: 0.01,
-          deviation: deviation, deviationEpsilon: 0.01,
-        )
-      )
-    }
+    #expect(result.hasPlayer(id: "Alice", mean: 30.66, deviation: 3.96))
+    #expect(result.hasPlayer(id: "Bob", mean: 29.49, deviation: 5.86))
+    #expect(result.hasPlayer(id: "Carol", mean: 27.03, deviation: 4.92))
+    #expect(result.hasPlayer(id: "Dave", mean: 26.65, deviation: 7.67))
+    #expect(result.hasPlayer(id: "Eve", mean: 24.03, deviation: 6.78))
 
-    expectPlayer(id: "Alice", mean: 30.66, deviation: 3.96)
-    expectPlayer(id: "Bob", mean: 29.49, deviation: 5.86)
-    expectPlayer(id: "Carol", mean: 27.03, deviation: 4.92)
-    expectPlayer(id: "Dave", mean: 26.65, deviation: 7.67)
-    expectPlayer(id: "Eve", mean: 24.03, deviation: 6.78)
+    #expect(result.hasPlayer(id: "Frank", mean: 31.85, deviation: 2.97))
+    #expect(result.hasPlayer(id: "Grace", mean: 28.57, deviation: 4.86))
+    #expect(result.hasPlayer(id: "Heidi", mean: 26.37, deviation: 5.75))
+    #expect(result.hasPlayer(id: "Ivan", mean: 24.12, deviation: 6.62))
+    #expect(result.hasPlayer(id: "Judy", mean: 21.82, deviation: 7.43))
 
-    expectPlayer(id: "Frank", mean: 31.85, deviation: 2.97)
-    expectPlayer(id: "Grace", mean: 28.57, deviation: 4.86)
-    expectPlayer(id: "Heidi", mean: 26.37, deviation: 5.75)
-    expectPlayer(id: "Ivan", mean: 24.12, deviation: 6.62)
-    expectPlayer(id: "Judy", mean: 21.82, deviation: 7.43)
+    #expect(result.hasPlayer(id: "Kevin", mean: 28.02, deviation: 3.94))
+    #expect(result.hasPlayer(id: "Laura", mean: 26.03, deviation: 4.88))
+    #expect(result.hasPlayer(id: "Michael", mean: 24.03, deviation: 5.79))
+    #expect(result.hasPlayer(id: "Natalie", mean: 22.03, deviation: 6.66))
+    #expect(result.hasPlayer(id: "Olivia", mean: 20.01, deviation: 7.51))
 
-    expectPlayer(id: "Kevin", mean: 28.02, deviation: 3.94)
-    expectPlayer(id: "Laura", mean: 26.03, deviation: 4.88)
-    expectPlayer(id: "Michael", mean: 24.03, deviation: 5.79)
-    expectPlayer(id: "Natalie", mean: 22.03, deviation: 6.66)
-    expectPlayer(id: "Olivia", mean: 20.01, deviation: 7.51)
-
-    expectPlayer(id: "Peter", mean: 25.32, deviation: 4.94)
-    expectPlayer(id: "Quinn", mean: 23.03, deviation: 5.89)
-    expectPlayer(id: "Rachel", mean: 20.67, deviation: 6.83)
-    expectPlayer(id: "Steve", mean: 18.27, deviation: 7.75)
-    expectPlayer(id: "Tina", mean: 15.81, deviation: 8.64)
+    #expect(result.hasPlayer(id: "Peter", mean: 25.32, deviation: 4.94))
+    #expect(result.hasPlayer(id: "Quinn", mean: 23.03, deviation: 5.89))
+    #expect(result.hasPlayer(id: "Rachel", mean: 20.67, deviation: 6.83))
+    #expect(result.hasPlayer(id: "Steve", mean: 18.27, deviation: 7.75))
+    #expect(result.hasPlayer(id: "Tina", mean: 15.81, deviation: 8.64))
   }
 
   @Test func uncertaintyDecrease() throws {
@@ -162,39 +152,29 @@ import Testing
     let match = TeamFreeForAllWithDraws(teams: [[teamA], [teamB, teamC], [teamD]])
     let result = UpdateSkill().teamFreeForAllWithDraws(match)
 
-    func expectPlayer(id: String, mean: Double, deviation: Double) {
-      #expect(
-        result.hasPlayer(
-          id: id,
-          mean: mean, meanEpsilon: 0.01,
-          deviation: deviation, deviationEpsilon: 0.01,
-        )
-      )
-    }
+    #expect(result.hasPlayer(id: "Alice", mean: 30.66, deviation: 3.96))
+    #expect(result.hasPlayer(id: "Bob", mean: 29.49, deviation: 5.86))
+    #expect(result.hasPlayer(id: "Carol", mean: 27.03, deviation: 4.92))
+    #expect(result.hasPlayer(id: "Dave", mean: 26.65, deviation: 7.67))
+    #expect(result.hasPlayer(id: "Eve", mean: 24.03, deviation: 6.78))
 
-    expectPlayer(id: "Alice", mean: 30.66, deviation: 3.96)
-    expectPlayer(id: "Bob", mean: 29.49, deviation: 5.86)
-    expectPlayer(id: "Carol", mean: 27.03, deviation: 4.92)
-    expectPlayer(id: "Dave", mean: 26.65, deviation: 7.67)
-    expectPlayer(id: "Eve", mean: 24.03, deviation: 6.78)
+    #expect(result.hasPlayer(id: "Frank", mean: 31.51, deviation: 2.96))
+    #expect(result.hasPlayer(id: "Grace", mean: 27.65, deviation: 4.83))
+    #expect(result.hasPlayer(id: "Heidi", mean: 25.06, deviation: 5.70))
+    #expect(result.hasPlayer(id: "Ivan", mean: 22.37, deviation: 6.53))
+    #expect(result.hasPlayer(id: "Judy", mean: 19.58, deviation: 7.31))
 
-    expectPlayer(id: "Frank", mean: 31.51, deviation: 2.96)
-    expectPlayer(id: "Grace", mean: 27.65, deviation: 4.83)
-    expectPlayer(id: "Heidi", mean: 25.06, deviation: 5.70)
-    expectPlayer(id: "Ivan", mean: 22.37, deviation: 6.53)
-    expectPlayer(id: "Judy", mean: 19.58, deviation: 7.31)
+    #expect(result.hasPlayer(id: "Kevin", mean: 28.53, deviation: 3.92))
+    #expect(result.hasPlayer(id: "Laura", mean: 26.82, deviation: 4.85))
+    #expect(result.hasPlayer(id: "Michael", mean: 25.17, deviation: 5.75))
+    #expect(result.hasPlayer(id: "Natalie", mean: 23.57, deviation: 6.60))
+    #expect(result.hasPlayer(id: "Olivia", mean: 22.02, deviation: 7.40))
 
-    expectPlayer(id: "Kevin", mean: 28.53, deviation: 3.92)
-    expectPlayer(id: "Laura", mean: 26.82, deviation: 4.85)
-    expectPlayer(id: "Michael", mean: 25.17, deviation: 5.75)
-    expectPlayer(id: "Natalie", mean: 23.57, deviation: 6.60)
-    expectPlayer(id: "Olivia", mean: 22.02, deviation: 7.40)
-
-    expectPlayer(id: "Peter", mean: 25.49, deviation: 4.95)
-    expectPlayer(id: "Quinn", mean: 23.26, deviation: 5.91)
-    expectPlayer(id: "Rachel", mean: 20.99, deviation: 6.85)
-    expectPlayer(id: "Steve", mean: 18.69, deviation: 7.78)
-    expectPlayer(id: "Tina", mean: 16.34, deviation: 8.69)
+    #expect(result.hasPlayer(id: "Peter", mean: 25.49, deviation: 4.95))
+    #expect(result.hasPlayer(id: "Quinn", mean: 23.26, deviation: 5.91))
+    #expect(result.hasPlayer(id: "Rachel", mean: 20.99, deviation: 6.85))
+    #expect(result.hasPlayer(id: "Steve", mean: 18.69, deviation: 7.78))
+    #expect(result.hasPlayer(id: "Tina", mean: 16.34, deviation: 8.69))
   }
 
   @Test func teamFreeForAllWithDrawsUncertaintyDecrease() throws {

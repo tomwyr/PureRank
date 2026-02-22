@@ -12,20 +12,10 @@ import Testing
     let match = FreeForAll(players: [playerA, playerB, playerC, playerD])
     let result = UpdateSkill().freeForAll(match)
 
-    func expectPlayer(id: String, mean: Double, deviation: Double) {
-      #expect(
-        result.hasPlayer(
-          id: id,
-          mean: mean, meanEpsilon: 0.01,
-          deviation: deviation, deviationEpsilon: 0.01
-        )
-      )
-    }
-
-    expectPlayer(id: "Alice", mean: 25.02, deviation: 6.60)
-    expectPlayer(id: "Bob", mean: 22.44, deviation: 4.88)
-    expectPlayer(id: "Carol", mean: 24.51, deviation: 4.89)
-    expectPlayer(id: "Dave", mean: 24.31, deviation: 4.44)
+    #expect(result.hasPlayer(id: "Alice", mean: 25.02, deviation: 6.60))
+    #expect(result.hasPlayer(id: "Bob", mean: 22.44, deviation: 4.88))
+    #expect(result.hasPlayer(id: "Carol", mean: 24.51, deviation: 4.89))
+    #expect(result.hasPlayer(id: "Dave", mean: 24.31, deviation: 4.44))
   }
 
   @Test func uncertaintyDecrease() throws {
@@ -58,20 +48,10 @@ import Testing
     let match = FreeForAllWithDraws(players: [[playerA], [playerB, playerC], [playerD]])
     let result = UpdateSkill().freeForAllWithDraws(match)
 
-    func expectPlayer(id: String, mean: Double, deviation: Double) {
-      #expect(
-        result.hasPlayer(
-          id: id,
-          mean: mean, meanEpsilon: 0.01,
-          deviation: deviation, deviationEpsilon: 0.01
-        )
-      )
-    }
-
-    expectPlayer(id: "Alice", mean: 25.02, deviation: 6.60)
-    expectPlayer(id: "Bob", mean: 20.44, deviation: 4.81)
-    expectPlayer(id: "Carol", mean: 26.73, deviation: 4.83)
-    expectPlayer(id: "Dave", mean: 24.94, deviation: 4.47)
+    #expect(result.hasPlayer(id: "Alice", mean: 25.02, deviation: 6.60))
+    #expect(result.hasPlayer(id: "Bob", mean: 20.44, deviation: 4.81))
+    #expect(result.hasPlayer(id: "Carol", mean: 26.73, deviation: 4.83))
+    #expect(result.hasPlayer(id: "Dave", mean: 24.94, deviation: 4.47))
   }
 
   @Test func freeForAllWithDrawsUncertaintyDecrease() throws {
