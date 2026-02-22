@@ -14,7 +14,25 @@ extension FreeForAll: MatchTestUtils {
   }
 }
 
+extension DuelWithDraws: MatchTestUtils {
+  var allPlayers: [Player] {
+    [playerA, playerB]
+  }
+}
+
+extension FreeForAllWithDraws: MatchTestUtils {
+  var allPlayers: [Player] {
+    players.flatMap { $0 }
+  }
+}
+
 extension TeamDuel: MatchTestUtils {
+  var allPlayers: [Player] {
+    teamA.players + teamB.players
+  }
+}
+
+extension TeamDuelWithDraws: MatchTestUtils {
   var allPlayers: [Player] {
     teamA.players + teamB.players
   }
@@ -23,6 +41,18 @@ extension TeamDuel: MatchTestUtils {
 extension TeamFreeForAll: MatchTestUtils {
   var allPlayers: [Player] {
     teams.flatMap(\.players)
+  }
+}
+
+extension TeamFreeForAllWithDraws: MatchTestUtils {
+  var allPlayers: [Player] {
+    teams.flatMap { $0.flatMap { $0.players } }
+  }
+}
+
+extension Team {
+  func findPlayer(id: String) -> Player? {
+    players.first { $0.id == id }
   }
 }
 
