@@ -35,6 +35,18 @@ struct DuelWithDraws {
 
 struct FreeForAll {
   let players: [Player]
+
+  var playerCount: Int {
+    players.count
+  }
+}
+
+struct FreeForAllWithDraws {
+  let players: [[Player]]
+
+  var playerCount: Int {
+    players.reduce(0) { sum, players in sum + players.count }
+  }
 }
 
 struct TeamDuel {
@@ -62,6 +74,14 @@ struct TeamFreeForAll {
 
   var playerCount: Int {
     teams.reduce(0) { sum, team in sum + team.players.count }
+  }
+}
+
+struct TeamFreeForAllWithDraws {
+  let teams: [[Team]]
+
+  var teamCount: Int {
+    teams.reduce(0) { sum, teams in sum + teams.count }
   }
 }
 
