@@ -10,7 +10,7 @@ import Testing
     let playerD = Player(id: "Dave", mean: 28, deviation: 5)
 
     let match = FreeForAll(players: [playerA, playerB, playerC, playerD])
-    let result = UpdateSkill().freeForAll(match)
+    let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 25.02, deviation: 6.60))
     #expect(result.hasPlayer(id: "Bob", mean: 22.44, deviation: 4.88))
@@ -25,7 +25,7 @@ import Testing
     let playerD = Player(id: "Dave", mean: 28, deviation: 5)
 
     let match = FreeForAll(players: [playerA, playerB, playerC, playerD])
-    let result = UpdateSkill().freeForAll(match)
+    let result = match.updatingRating()
 
     func expectDeviationDecrease(id: String) throws {
       let before = try #require(match.findPlayer(id: id))
@@ -46,7 +46,7 @@ import Testing
     let playerD = Player(id: "Dave", mean: 28, deviation: 5)
 
     let match = FreeForAllWithDraws(players: [[playerA], [playerB, playerC], [playerD]])
-    let result = UpdateSkill().freeForAllWithDraws(match)
+    let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 25.02, deviation: 6.60))
     #expect(result.hasPlayer(id: "Bob", mean: 20.44, deviation: 4.81))
@@ -61,7 +61,7 @@ import Testing
     let playerD = Player(id: "Dave", mean: 28, deviation: 5)
 
     let match = FreeForAllWithDraws(players: [[playerA], [playerB, playerC], [playerD]])
-    let result = UpdateSkill().freeForAllWithDraws(match)
+    let result = match.updatingRating()
 
     func expectDeviationDecrease(id: String) throws {
       let before = try #require(match.findPlayer(id: id))
@@ -82,9 +82,9 @@ import Testing
     let playerD = Player(id: "Dave", mean: 28, deviation: 5)
 
     let decisiveMatch = FreeForAllWithDraws(players: [[playerA], [playerB], [playerC], [playerD]])
-    let decisiveResult = UpdateSkill().freeForAllWithDraws(decisiveMatch)
+    let decisiveResult = decisiveMatch.updatingRating()
     let drawMatch = FreeForAllWithDraws(players: [[playerA], [playerB, playerC], [playerD]])
-    let drawResult = UpdateSkill().freeForAllWithDraws(drawMatch)
+    let drawResult = drawMatch.updatingRating()
 
     let decisivePlayerA = try #require(decisiveResult.findPlayer(id: "Alice"))
     let drawPlayerA = try #require(drawResult.findPlayer(id: "Alice"))

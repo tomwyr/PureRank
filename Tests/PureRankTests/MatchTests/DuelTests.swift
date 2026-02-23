@@ -8,7 +8,7 @@ import Testing
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)
 
     let match = Duel(playerA: playerA, playerB: playerB, winnerSide: .sideA)
-    let result = UpdateSkill().duel(match)
+    let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 27.01, deviation: 3.72))
     #expect(result.hasPlayer(id: "Bob", mean: 25.48, deviation: 5.00))
@@ -19,7 +19,7 @@ import Testing
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)
 
     let match = Duel(playerA: playerA, playerB: playerB, winnerSide: .sideA)
-    let result = UpdateSkill().duel(match)
+    let result = match.updatingRating()
 
     func expectDeviationDecrease(id: String) throws {
       let before = try #require(match.findPlayer(id: id))
@@ -36,7 +36,7 @@ import Testing
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)
 
     let match = DuelWithDraws(playerA: playerA, playerB: playerB, outcome: .draw)
-    let result = UpdateSkill().duelWithDraws(match)
+    let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 25.77, deviation: 3.68))
     #expect(result.hasPlayer(id: "Bob", mean: 28.27, deviation: 4.85))
@@ -47,7 +47,7 @@ import Testing
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)
 
     let match = DuelWithDraws(playerA: playerA, playerB: playerB, outcome: .draw)
-    let result = UpdateSkill().duelWithDraws(match)
+    let result = match.updatingRating()
 
     func expectDeviationDecrease(id: String) throws {
       let before = try #require(match.findPlayer(id: id))
@@ -64,7 +64,7 @@ import Testing
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)
 
     let match = DuelWithDraws(playerA: playerA, playerB: playerB, outcome: .win(.sideA))
-    let result = UpdateSkill().duelWithDraws(match)
+    let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 27.01, deviation: 3.72))
     #expect(result.hasPlayer(id: "Bob", mean: 25.48, deviation: 5.00))
@@ -75,9 +75,9 @@ import Testing
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)
 
     let decisiveMatch = DuelWithDraws(playerA: playerA, playerB: playerB, outcome: .win(.sideA))
-    let decisiveResult = UpdateSkill().duelWithDraws(decisiveMatch)
+    let decisiveResult = decisiveMatch.updatingRating()
     let drawMatch = DuelWithDraws(playerA: playerA, playerB: playerB, outcome: .draw)
-    let drawResult = UpdateSkill().duelWithDraws(drawMatch)
+    let drawResult = drawMatch.updatingRating()
 
     let winPlayerA = try #require(decisiveResult.findPlayer(id: "Alice"))
     let drawPlayerA = try #require(drawResult.findPlayer(id: "Alice"))

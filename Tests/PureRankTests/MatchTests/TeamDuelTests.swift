@@ -21,7 +21,7 @@ import Testing
     ])
 
     let match = TeamDuel(teamA: teamA, teamB: teamB, winnerSide: .sideA)
-    let result = UpdateSkill().teamDuel(match)
+    let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 30.66, deviation: 3.96))
     #expect(result.hasPlayer(id: "Bob", mean: 29.49, deviation: 5.86))
@@ -54,7 +54,7 @@ import Testing
     ])
 
     let match = TeamDuel(teamA: teamA, teamB: teamB, winnerSide: .sideA)
-    let result = UpdateSkill().teamDuel(match)
+    let result = match.updatingRating()
 
     func expectDeviationDecrease(id: String) throws {
       let before = try #require(match.findPlayer(id: id))
@@ -88,7 +88,7 @@ import Testing
     ])
 
     let match = TeamDuelWithDraws(teamA: teamA, teamB: teamB, outcome: .draw)
-    let result = UpdateSkill().teamDuelWithDraws(match)
+    let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 30.15, deviation: 3.95))
     #expect(result.hasPlayer(id: "Bob", mean: 28.33, deviation: 5.83))
@@ -121,7 +121,7 @@ import Testing
     ])
 
     let match = TeamDuelWithDraws(teamA: teamA, teamB: teamB, outcome: .draw)
-    let result = UpdateSkill().teamDuelWithDraws(match)
+    let result = match.updatingRating()
 
     func expectDeviationDecrease(id: String) throws {
       let before = try #require(match.findPlayer(id: id))
@@ -155,7 +155,7 @@ import Testing
     ])
 
     let match = TeamDuelWithDraws(teamA: teamA, teamB: teamB, outcome: .win(.sideA))
-    let result = UpdateSkill().teamDuelWithDraws(match)
+    let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 30.66, deviation: 3.96))
     #expect(result.hasPlayer(id: "Bob", mean: 29.49, deviation: 5.86))
@@ -182,9 +182,9 @@ import Testing
     ])
 
     let decisiveMatch = TeamDuelWithDraws(teamA: teamA, teamB: teamB, outcome: .win(.sideA))
-    let decisiveResult = UpdateSkill().teamDuelWithDraws(decisiveMatch)
+    let decisiveResult = decisiveMatch.updatingRating()
     let drawMatch = TeamDuelWithDraws(teamA: teamA, teamB: teamB, outcome: .draw)
-    let drawResult = UpdateSkill().teamDuelWithDraws(drawMatch)
+    let drawResult = drawMatch.updatingRating()
 
     for playerId in ["Alice", "Bob"] {
       let originalPlayer = try #require(teamA.findPlayer(id: playerId))

@@ -37,7 +37,7 @@ import Testing
     ])
 
     let match = TeamFreeForAll(teams: [teamA, teamB, teamC, teamD])
-    let result = UpdateSkill().teamFreeForAll(match)
+    let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 30.66, deviation: 3.96))
     #expect(result.hasPlayer(id: "Bob", mean: 29.49, deviation: 5.86))
@@ -98,7 +98,7 @@ import Testing
     ])
 
     let match = TeamFreeForAll(teams: [teamA, teamB, teamC, teamD])
-    let result = UpdateSkill().teamFreeForAll(match)
+    let result = match.updatingRating()
 
     func expectDeviationDecrease(id: String) throws {
       let before = try #require(match.findPlayer(id: id))
@@ -150,7 +150,7 @@ import Testing
     ])
 
     let match = TeamFreeForAllWithDraws(teams: [[teamA], [teamB, teamC], [teamD]])
-    let result = UpdateSkill().teamFreeForAllWithDraws(match)
+    let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 30.66, deviation: 3.96))
     #expect(result.hasPlayer(id: "Bob", mean: 29.49, deviation: 5.86))
@@ -211,7 +211,7 @@ import Testing
     ])
 
     let match = TeamFreeForAllWithDraws(teams: [[teamA], [teamB, teamC], [teamD]])
-    let result = UpdateSkill().teamFreeForAllWithDraws(match)
+    let result = match.updatingRating()
 
     func expectDeviationDecrease(id: String) throws {
       let before = try #require(match.findPlayer(id: id))
@@ -263,9 +263,9 @@ import Testing
     ])
 
     let decisiveMatch = TeamFreeForAllWithDraws(teams: [[teamA], [teamB], [teamC], [teamD]])
-    let decisiveResult = UpdateSkill().teamFreeForAllWithDraws(decisiveMatch)
+    let decisiveResult = decisiveMatch.updatingRating()
     let drawMatch = TeamFreeForAllWithDraws(teams: [[teamA], [teamB, teamC], [teamD]])
-    let drawResult = UpdateSkill().teamFreeForAllWithDraws(drawMatch)
+    let drawResult = drawMatch.updatingRating()
 
     let decisiveTeamA = decisiveResult.teams[0][0]
     let drawPlayerA = drawResult.teams[0][0]
