@@ -7,6 +7,6 @@ func calcDrawMargin() -> Double {
   stdPpf((1 + matchDrawRate) / 2) * sqrt(2) * matchDeviationRate
 }
 
-func calcC(varianceA: Double, varianceB: Double, competitorCount: Int) -> Double {
-  sqrt(varianceA + varianceB + Double(competitorCount) * pow(matchDeviationRate, 2))
+func calcC(varianceA: Double, varianceB: Double, playerCount: Int) -> Double {
+  sqrt(varianceA + varianceB + Double(playerCount) * pow(matchDeviationRate, 2))
 }

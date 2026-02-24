@@ -28,7 +28,7 @@ struct TeamDuel: TeamMatch {
 
     let c = calcC(
       varianceA: wVariance, varianceB: lVariance,
-      competitorCount: winner.players.count + loser.players.count,
+      playerCount: winner.players.count + loser.players.count,
     )
     let t = (wMean - lMean) / c
     let v = stdPdf(t) / stdCdf(t)

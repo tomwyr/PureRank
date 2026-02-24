@@ -37,7 +37,7 @@ struct DuelWithDraws: Match {
     case .win(.sideB):
       updateRating(winner: &playerB, loser: &playerA)
     case .draw:
-      updateRatingDraw(competitorA: &playerA, competitorB: &playerB)
+      updateRatingDraw(playerA: &playerA, playerB: &playerB)
     }
   }
 }

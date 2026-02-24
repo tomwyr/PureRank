@@ -7,7 +7,7 @@ extension Match {
     let (wMean, wVariance) = (winner.mean, winner.variance)
     let (lMean, lVariance) = (loser.mean, loser.variance)
 
-    let c = calcC(varianceA: wVariance, varianceB: lVariance, competitorCount: 2)
+    let c = calcC(varianceA: wVariance, varianceB: lVariance, playerCount: 2)
     let t = (wMean - lMean) / c
     let v = stdPdf(t) / stdCdf(t)
     let w = v * (v + t)
@@ -16,12 +16,12 @@ extension Match {
     loser.updateRating(c: c, v: v, w: w, delta: .minus)
   }
 
-  func updateRatingDraw(competitorA: inout Player, competitorB: inout Player) {
-    let (aMean, aVariance) = (competitorA.mean, competitorA.variance)
-    let (bMean, bVariance) = (competitorB.mean, competitorB.variance)
+  func updateRatingDraw(playerA: inout Player, playerB: inout Player) {
+    let (aMean, aVariance) = (playerA.mean, playerA.variance)
+    let (bMean, bVariance) = (playerB.mean, playerB.variance)
 
     let e = calcDrawMargin()
-    let c = calcC(varianceA: aVariance, varianceB: bVariance, competitorCount: 2)
+    let c = calcC(varianceA: aVariance, varianceB: bVariance, playerCount: 2)
     let t = (aMean - bMean) / c
     let v = (stdPdf(-e - t) - stdPdf(e - t)) / (stdCdf(e - t) - stdCdf(-e - t))
     let w =
@@ -29,8 +29,8 @@ extension Match {
       + ((e - t) * stdPdf(e - t) - (-e - t) * stdPdf(-e - t))
       / (stdCdf(e - t) - stdCdf(-e - t))
 
-    competitorA.updateRating(c: c, v: v, w: w, delta: .plus)
-    competitorB.updateRating(c: c, v: v, w: w, delta: .minus)
+    playerA.updateRating(c: c, v: v, w: w, delta: .plus)
+    playerB.updateRating(c: c, v: v, w: w, delta: .minus)
   }
 }
 
@@ -43,7 +43,7 @@ extension TeamMatch {
 
     let c = calcC(
       varianceA: wVariance, varianceB: lVariance,
-      competitorCount: winner.players.count + loser.players.count,
+      playerCount: winner.players.count + loser.players.count,
     )
     let t = (wMean - lMean) / c
     let v = stdPdf(t) / stdCdf(t)
@@ -60,7 +60,7 @@ extension TeamMatch {
     let e = calcDrawMargin()
     let c = calcC(
       varianceA: aVariance, varianceB: bVariance,
-      competitorCount: teamA.players.count + teamB.players.count,
+      playerCount: teamA.players.count + teamB.players.count,
     )
     let t = (aMean - bMean) / c
     let v = (stdPdf(-e - t) - stdPdf(e - t)) / (stdCdf(e - t) - stdCdf(-e - t))
