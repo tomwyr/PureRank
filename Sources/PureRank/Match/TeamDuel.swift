@@ -3,39 +3,26 @@ struct TeamDuel: TeamMatch {
   var teamB: Team
   var winnerSide: MatchSide
 
-  var playerCount: Int {
-    teamA.players.count + teamB.players.count
-  }
-
-  func updatingRating() -> TeamDuel {
-    var result = self
-    result.updateRating()
-    return result
-  }
-
-  mutating func updateRating() {
-    switch winnerSide {
-    case .sideA:
-      updateRating(winner: &teamA, loser: &teamB)
-    case .sideB:
-      updateRating(winner: &teamB, loser: &teamA)
+  var standings: [[Team]] {
+    get {
+      switch winnerSide {
+      case .sideA:
+        [[teamA], [teamB]]
+      case .sideB:
+        [[teamB], [teamA]]
+      }
     }
-  }
 
-  func updateRating(winner: inout Team, loser: inout Team) {
-    let (wMean, wVariance) = (winner.mean, winner.variance)
-    let (lMean, lVariance) = (loser.mean, loser.variance)
-
-    let c = calcC(
-      varianceA: wVariance, varianceB: lVariance,
-      playerCount: winner.players.count + loser.players.count,
-    )
-    let t = (wMean - lMean) / c
-    let v = stdPdf(t) / stdCdf(t)
-    let w = v * (v + t)
-
-    winner.updateRating(c: c, v: v, w: w, delta: .plus)
-    loser.updateRating(c: c, v: v, w: w, delta: .minus)
+    set {
+      switch winnerSide {
+      case .sideA:
+        teamA = newValue[0][0]
+        teamB = newValue[1][0]
+      case .sideB:
+        teamB = newValue[0][0]
+        teamA = newValue[1][0]
+      }
+    }
   }
 }
 
@@ -44,24 +31,30 @@ struct TeamDuelWithDraws: TeamMatch {
   var teamB: Team
   var outcome: MatchOutcome
 
-  var playerCount: Int {
-    teamA.players.count + teamB.players.count
-  }
+  var standings: [[Team]] {
+    get {
+      switch outcome {
+      case .win(.sideA):
+        [[teamA], [teamB]]
+      case .win(.sideB):
+        [[teamB], [teamA]]
+      case .draw:
+        [[teamA, teamB]]
+      }
+    }
 
-  func updatingRating() -> TeamDuelWithDraws {
-    var result = self
-    result.updateRating()
-    return result
-  }
-
-  mutating func updateRating() {
-    switch outcome {
-    case .win(.sideA):
-      updateRating(winner: &teamA, loser: &teamB)
-    case .win(.sideB):
-      updateRating(winner: &teamB, loser: &teamA)
-    case .draw:
-      updateRatingDraw(teamA: &teamA, teamB: &teamB)
+    set {
+      switch outcome {
+      case .win(.sideA):
+        teamA = newValue[0][0]
+        teamB = newValue[1][0]
+      case .win(.sideB):
+        teamB = newValue[0][0]
+        teamA = newValue[1][0]
+      case .draw:
+        teamA = newValue[0][0]
+        teamB = newValue[0][1]
+      }
     }
   }
 }

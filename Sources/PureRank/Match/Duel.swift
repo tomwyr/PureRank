@@ -3,18 +3,25 @@ struct Duel: Match {
   var playerB: Player
   var winnerSide: MatchSide
 
-  func updatingRating() -> Duel {
-    var result = self
-    result.updateRating()
-    return result
-  }
+  var standings: [[Player]] {
+    get {
+      switch winnerSide {
+      case .sideA:
+        [[playerA], [playerB]]
+      case .sideB:
+        [[playerB], [playerA]]
+      }
+    }
 
-  mutating func updateRating() {
-    switch winnerSide {
-    case .sideA:
-      updateRating(winner: &playerA, loser: &playerB)
-    case .sideB:
-      updateRating(winner: &playerB, loser: &playerA)
+    set {
+      switch winnerSide {
+      case .sideA:
+        playerA = newValue[0][0]
+        playerB = newValue[1][0]
+      case .sideB:
+        playerB = newValue[0][0]
+        playerA = newValue[1][0]
+      }
     }
   }
 }
@@ -24,20 +31,30 @@ struct DuelWithDraws: Match {
   var playerB: Player
   var outcome: MatchOutcome
 
-  func updatingRating() -> DuelWithDraws {
-    var result = self
-    result.updateRating()
-    return result
-  }
+  var standings: [[Player]] {
+    get {
+      switch outcome {
+      case .win(.sideA):
+        [[playerA], [playerB]]
+      case .win(.sideB):
+        [[playerB], [playerA]]
+      case .draw:
+        [[playerA, playerB]]
+      }
+    }
 
-  mutating func updateRating() {
-    switch outcome {
-    case .win(.sideA):
-      updateRating(winner: &playerA, loser: &playerB)
-    case .win(.sideB):
-      updateRating(winner: &playerB, loser: &playerA)
-    case .draw:
-      updateRatingDraw(playerA: &playerA, playerB: &playerB)
+    set {
+      switch outcome {
+      case .win(.sideA):
+        playerA = newValue[0][0]
+        playerB = newValue[1][0]
+      case .win(.sideB):
+        playerB = newValue[0][0]
+        playerA = newValue[1][0]
+      case .draw:
+        playerA = newValue[0][0]
+        playerB = newValue[0][1]
+      }
     }
   }
 }

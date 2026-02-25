@@ -1,9 +1,41 @@
 import Foundation
 
-protocol Match {}
+protocol Match {
+  var standings: [[Player]] { get set }
+
+  func updatingRating() -> Self
+  mutating func updateRating()
+}
 
 extension Match {
-  func updateRating(winner: inout Player, loser: inout Player) {
+  func updatingRating() -> Self {
+    var result = self
+    result.updateRating()
+    return result
+  }
+
+  mutating func updateRating() {
+    let standingCount = standings.joined().count
+
+    for i in 0..<(standingCount - 1) {
+      let (iCurrentRank, iCurrentPlayer) = standings.indices(ofFlatIndex: i)
+      let (iNextRank, iNextPlayer) = standings.indices(ofFlatIndex: i + 1)
+
+      var current = standings[iCurrentRank][iCurrentPlayer]
+      var next = standings[iNextRank][iNextPlayer]
+
+      if iCurrentRank == iNextRank {
+        updateRatingDraw(playerA: &current, playerB: &next)
+      } else {
+        updateRatingWin(winner: &current, loser: &next)
+      }
+
+      standings[iCurrentRank][iCurrentPlayer] = current
+      standings[iNextRank][iNextPlayer] = next
+    }
+  }
+
+  func updateRatingWin(winner: inout Player, loser: inout Player) {
     let (wMean, wVariance) = (winner.mean, winner.variance)
     let (lMean, lVariance) = (loser.mean, loser.variance)
 
@@ -34,10 +66,42 @@ extension Match {
   }
 }
 
-protocol TeamMatch {}
+protocol TeamMatch {
+  var standings: [[Team]] { get set }
+
+  func updatingRating() -> Self
+  mutating func updateRating()
+}
 
 extension TeamMatch {
-  func updateRating(winner: inout Team, loser: inout Team) {
+  func updatingRating() -> Self {
+    var result = self
+    result.updateRating()
+    return result
+  }
+
+  mutating func updateRating() {
+    let standingCount = standings.joined().count
+
+    for i in 0..<(standingCount - 1) {
+      let (iCurrentRank, iCurrentPlayer) = standings.indices(ofFlatIndex: i)
+      let (iNextRank, iNextPlayer) = standings.indices(ofFlatIndex: i + 1)
+
+      var current = standings[iCurrentRank][iCurrentPlayer]
+      var next = standings[iNextRank][iNextPlayer]
+
+      if iCurrentRank == iNextRank {
+        updateRatingDraw(teamA: &current, teamB: &next)
+      } else {
+        updateRatingWin(winner: &current, loser: &next)
+      }
+
+      standings[iCurrentRank][iCurrentPlayer] = current
+      standings[iNextRank][iNextPlayer] = next
+    }
+  }
+
+  func updateRatingWin(winner: inout Team, loser: inout Team) {
     let (wMean, wVariance) = (winner.mean, winner.variance)
     let (lMean, lVariance) = (loser.mean, loser.variance)
 
