@@ -14,13 +14,7 @@ struct Player: Rating {
     c: Double, v: Double, w: Double,
     delta: RatingUpdateDelta,
   ) {
-    let perfVariance = pow(c, 2)
-    let ratingVariance = pow(deviation, 2)
-
-    let meanNew = mean + (ratingVariance / c * v) * delta.rawValue
-    let deviationNew = sqrt(ratingVariance * (1 - (ratingVariance / perfVariance * w)))
-
-    mean = meanNew
-    deviation = deviationNew
+    mean = mean + (variance / c * v) * delta.rawValue
+    deviation = sqrt(variance * (1 - (variance / pow(c, 2) * w)))
   }
 }

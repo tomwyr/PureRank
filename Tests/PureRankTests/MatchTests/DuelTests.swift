@@ -7,7 +7,7 @@ import Testing
     let playerA = Player(id: "Alice", mean: 25, deviation: 4)
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)
 
-    let match = Duel(playerA: playerA, playerB: playerB, winnerSide: .sideA)
+    let match = Duel(playerA: playerA, playerB: playerB, winner: .sideA)
     let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 27.01, deviation: 3.72))
@@ -18,7 +18,7 @@ import Testing
     let playerA = Player(id: "Alice", mean: 25, deviation: 4)
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)
 
-    let match = Duel(playerA: playerA, playerB: playerB, winnerSide: .sideA)
+    let match = Duel(playerA: playerA, playerB: playerB, winner: .sideA)
     let result = match.updatingRating()
 
     func expectDeviationDecrease(id: String) throws {

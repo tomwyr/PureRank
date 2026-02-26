@@ -1,11 +1,11 @@
 struct Duel: Match {
   var playerA: Player
   var playerB: Player
-  var winnerSide: MatchSide
+  var winner: MatchSide
 
   var standings: [[Player]] {
     get {
-      switch winnerSide {
+      switch winner {
       case .sideA:
         [[playerA], [playerB]]
       case .sideB:
@@ -14,7 +14,7 @@ struct Duel: Match {
     }
 
     set {
-      switch winnerSide {
+      switch winner {
       case .sideA:
         playerA = newValue[0][0]
         playerB = newValue[1][0]

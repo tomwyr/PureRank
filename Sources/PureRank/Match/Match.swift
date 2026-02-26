@@ -31,28 +31,25 @@ extension Match {
     let standingCount = standings.joined().count
 
     for i in 0..<(standingCount - 1) {
-      let (iCurrentRank, iCurrentPlayer) = standings.indices(ofFlatIndex: i)
-      let (iNextRank, iNextPlayer) = standings.indices(ofFlatIndex: i + 1)
+      let (iCurrentRank, iCurrentComp) = standings.indices(ofFlatIndex: i)
+      let (iNextRank, iNextComp) = standings.indices(ofFlatIndex: i + 1)
 
-      var current = standings[iCurrentRank][iCurrentPlayer]
-      var next = standings[iNextRank][iNextPlayer]
+      var current = standings[iCurrentRank][iCurrentComp]
+      var next = standings[iNextRank][iNextComp]
 
       if iCurrentRank == iNextRank {
-        updateRatingDraw(left: &current, right: &next)
+        updateRatingForDraw(compA: &current, compB: &next)
       } else {
-        updateRatingWin(winner: &current, loser: &next)
+        updateRatingForWin(winner: &current, loser: &next)
       }
 
-      standings[iCurrentRank][iCurrentPlayer] = current
-      standings[iNextRank][iNextPlayer] = next
+      standings[iCurrentRank][iCurrentComp] = current
+      standings[iNextRank][iNextComp] = next
     }
   }
 
-  private func updateRatingWin(winner: inout Competitor, loser: inout Competitor) {
-    let c = calcC(
-      varianceA: winner.variance, varianceB: loser.variance,
-      playerCount: winner.playerCount + loser.playerCount,
-    )
+  private func updateRatingForWin(winner: inout Competitor, loser: inout Competitor) {
+    let c = calcMatchC(compA: winner, compB: loser)
     let t = (winner.mean - loser.mean) / c
     let v = stdPdf(t) / stdCdf(t)
     let w = v * (v + t)
@@ -61,12 +58,9 @@ extension Match {
     loser.updateRating(c: c, v: v, w: w, delta: .minus)
   }
 
-  private func updateRatingDraw(left: inout Competitor, right: inout Competitor) {
-    let c = calcC(
-      varianceA: left.variance, varianceB: right.variance,
-      playerCount: left.playerCount + right.playerCount,
-    )
-    let t = (left.mean - right.mean) / c
+  private func updateRatingForDraw(compA: inout Competitor, compB: inout Competitor) {
+    let c = calcMatchC(compA: compA, compB: compB)
+    let t = (compA.mean - compB.mean) / c
     let e = calcDrawMargin()
     let v = (stdPdf(-e - t) - stdPdf(e - t)) / (stdCdf(e - t) - stdCdf(-e - t))
     let w =
@@ -74,7 +68,14 @@ extension Match {
       + ((e - t) * stdPdf(e - t) - (-e - t) * stdPdf(-e - t))
       / (stdCdf(e - t) - stdCdf(-e - t))
 
-    left.updateRating(c: c, v: v, w: w, delta: .plus)
-    right.updateRating(c: c, v: v, w: w, delta: .minus)
+    compA.updateRating(c: c, v: v, w: w, delta: .plus)
+    compB.updateRating(c: c, v: v, w: w, delta: .minus)
+  }
+
+  private func calcMatchC(compA: Competitor, compB: Competitor) -> Double {
+    calcC(
+      varianceA: compA.variance, varianceB: compB.variance,
+      playerCount: compA.playerCount + compB.playerCount,
+    )
   }
 }

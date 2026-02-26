@@ -20,7 +20,7 @@ import Testing
       Player(id: "Judy", mean: 23, deviation: 8),
     ])
 
-    let match = TeamDuel(teamA: teamA, teamB: teamB, winnerSide: .sideA)
+    let match = TeamDuel(teamA: teamA, teamB: teamB, winner: .sideA)
     let result = match.updatingRating()
 
     #expect(result.hasPlayer(id: "Alice", mean: 30.66, deviation: 3.96))
@@ -53,7 +53,7 @@ import Testing
       Player(id: "Judy", mean: 23, deviation: 8),
     ])
 
-    let match = TeamDuel(teamA: teamA, teamB: teamB, winnerSide: .sideA)
+    let match = TeamDuel(teamA: teamA, teamB: teamB, winner: .sideA)
     let result = match.updatingRating()
 
     func expectDeviationDecrease(id: String) throws {
