@@ -4,23 +4,20 @@
 import PackageDescription
 
 let package = Package(
-    name: "PureRank",
-    products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "PureRank",
-            targets: ["PureRank"]
-        ),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "PureRank"
-        ),
-        .testTarget(
-            name: "PureRankTests",
-            dependencies: ["PureRank"]
-        ),
-    ]
+  name: "PureRank",
+  products: [
+    .library(
+      name: "PureRank",
+      targets: ["PureRank"]
+    )
+  ],
+  targets: [
+    .target(
+      name: "PureRank"
+    ),
+    .testTarget(
+      name: "PureRankTests",
+      dependencies: ["PureRank"]
+    ),
+  ]
 )
