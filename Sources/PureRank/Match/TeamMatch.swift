@@ -1,4 +1,4 @@
-struct TeamDuel: TeamMatch {
+struct TeamDuel: Match {
   var teamA: Team
   var teamB: Team
   var winnerSide: MatchSide
@@ -26,7 +26,7 @@ struct TeamDuel: TeamMatch {
   }
 }
 
-struct TeamDuelWithDraws: TeamMatch {
+struct TeamDuelWithDraws: Match {
   var teamA: Team
   var teamB: Team
   var outcome: MatchOutcome
@@ -56,5 +56,23 @@ struct TeamDuelWithDraws: TeamMatch {
         teamB = newValue[0][1]
       }
     }
+  }
+}
+
+struct TeamFreeForAll: Match {
+  var teams: [Team]
+
+  var standings: [[Team]] {
+    get { teams.map { [$0] } }
+    set { teams = newValue.map { $0[0] } }
+  }
+}
+
+struct TeamFreeForAllWithDraws: Match {
+  var teams: [[Team]]
+
+  var standings: [[Team]] {
+    get { teams }
+    set { teams = newValue }
   }
 }

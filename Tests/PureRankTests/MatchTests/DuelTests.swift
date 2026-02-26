@@ -2,7 +2,7 @@ import Testing
 
 @testable import PureRank
 
-@Suite struct SoloMatchTests {
+@Suite struct DuelTests {
   @Test func playerUpdates() async throws {
     let playerA = Player(id: "Alice", mean: 25, deviation: 4)
     let playerB = Player(id: "Bob", mean: 30, deviation: 6)

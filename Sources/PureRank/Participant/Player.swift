@@ -1,6 +1,6 @@
 import Foundation
 
-struct Player {
+struct Player: Rating {
   var id: String
   var mean: Double
   var deviation: Double
@@ -8,9 +8,11 @@ struct Player {
   var variance: Double { pow(deviation, 2) }
   var rating: Double { mean - 3 * deviation }
 
+  var playerCount: Int { 1 }
+
   mutating func updateRating(
     c: Double, v: Double, w: Double,
-    delta: MatchUpdateDelta,
+    delta: RatingUpdateDelta,
   ) {
     let perfVariance = pow(c, 2)
     let ratingVariance = pow(deviation, 2)
