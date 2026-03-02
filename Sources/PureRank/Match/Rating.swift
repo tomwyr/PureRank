@@ -1,4 +1,4 @@
-protocol Rating {
+protocol Rating: RatingChange {
   var mean: Double { get }
   var variance: Double { get }
   var playerCount: Int { get }

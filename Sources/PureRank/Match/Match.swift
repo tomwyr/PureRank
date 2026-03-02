@@ -1,6 +1,6 @@
 import Foundation
 
-protocol Match {
+protocol Match: RatingChange {
   associatedtype Competitor: Rating
 
   var standings: [[Competitor]] { get set }
